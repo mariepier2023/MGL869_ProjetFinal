@@ -38,7 +38,7 @@ def run_git_command(repo_path, command):
     return result.stdout.strip()
 
 def get_lines_added_deleted(repo_path, start_commit, end_commit, file_path):
-    output = run_git_command(repo_path, ['diff', '--numstat', f'{start_commit}..{end_commit}^', '--', file_path])
+    output = run_git_command(repo_path, ['diff', '--numstat', f'{start_commit}..{end_commit}', '--', file_path])
     if output:
         parts = output.split('\t')
         if len(parts) == 3:
@@ -49,7 +49,7 @@ def get_lines_added_deleted(repo_path, start_commit, end_commit, file_path):
     return 0, 0
 
 def get_commits(repo_path, file_path, start_commit, end_commit):
-    output = run_git_command(repo_path, ['log', '--pretty=format:%H %s', f'{start_commit}..{end_commit}^', '--', file_path])
+    output = run_git_command(repo_path, ['log', '--pretty=format:%H %s', f'{start_commit}..{end_commit}', '--', file_path])
     if not output:
         return []
     commits = [line.split(' ', 1) for line in output.split('\n') if ' ' in line]
@@ -81,9 +81,27 @@ def calculate_average_time(dates):
 def get_developer_expertise(repo_path, developers, end_commit):
     expertise = defaultdict(int)
     for developer in developers:
-        output = run_git_command(repo_path, ['log', '--author', developer, '--pretty=format:%H', f'--before={end_commit}^'])
+        output = run_git_command(repo_path, ['log', '--author', developer, '--pretty=format:%H', '-n', '1', end_commit])
         expertise[developer] = len(output.split('\n')) if output else 0
     return expertise
+
+def get_comment_change_commits(repo_path, file_path, start_commit, end_commit):
+    output = run_git_command(repo_path, ['log', '-p', '--pretty=format:%H', f'{start_commit}..{end_commit}', '--', file_path])
+    if not output:
+        return 0, 0
+
+    commits = output.split('\n')
+    comment_change_commits = 0
+    non_comment_change_commits = 0
+
+    for commit in commits:
+        diff_output = run_git_command(repo_path, ['diff', f'{commit}^!', '--', file_path])
+        if any(line.strip().startswith(('+', '-')) and line.strip()[1:].strip().startswith('#') for line in diff_output.split('\n')):
+            comment_change_commits += 1
+        else:
+            non_comment_change_commits += 1
+
+    return comment_change_commits, non_comment_change_commits
 
 def process_file(repo_path, file_path, start_commit, end_commit):
     added, deleted = get_lines_added_deleted(repo_path, start_commit, end_commit, file_path)
@@ -99,6 +117,7 @@ def process_file(repo_path, file_path, start_commit, end_commit):
     expertise = get_developer_expertise(repo_path, developers, end_commit)
     avg_expertise = sum(expertise.values()) / len(expertise) if expertise else 0
     min_expertise = min(expertise.values()) if expertise else 0
+    comment_change_commits, non_comment_change_commits = get_comment_change_commits(repo_path, file_path, start_commit, end_commit)
 
     return {
         "file": file_path,
@@ -112,7 +131,9 @@ def process_file(repo_path, file_path, start_commit, end_commit):
         "avg_time_between_changes": average_time,
         "avg_time_all_versions": all_average_time,
         "avg_expertise": avg_expertise,
-        "min_expertise": min_expertise
+        "min_expertise": min_expertise,
+        "comment_change_commits": comment_change_commits,
+        "non_comment_change_commits": non_comment_change_commits
     }
 
 def main(repo_path, start_commit, end_commit):

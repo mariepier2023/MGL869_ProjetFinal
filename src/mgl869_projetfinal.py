@@ -25,7 +25,7 @@ def write_commits_to_csv(commit_list, output_file):
                 writer.writerow([key, sha, message, bug_file])
 
 
-VERSION = "2.0.0"
+VERSION = "3.0.0"
 OUTPUT_FILE_NAME = "Bugs_" + VERSION + ".csv"
 OUTPUT_FILE = Path(os.path.realpath(__file__)).parent.parent/"data"/OUTPUT_FILE_NAME
 JIRA_SEARCH_FILTER = "project = HIVE AND issuetype = Bug AND status in (Resolved, Closed) AND resolution = Fixed AND affectedVersion = " + VERSION
