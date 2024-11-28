@@ -18,13 +18,14 @@ def write_commits_to_csv(results, output_file):
         writer = csv.writer(file)
         writer.writerow(['file', 'lines_added', 'lines_deleted', 'num_commits', 'num_bug_fixes', 'num_all_commits',
                          'num_developers', 'num_all_developers', 'avg_time_between_changes',
-                         'avg_time_all_versions', 'avg_expertise', 'min_expertise'])
+                         'avg_time_all_versions', 'avg_expertise', 'min_expertise', 'comment_change_commits', 'non_comment_change_commits'])
 
         for result in results:
             writer.writerow([result['file'], result['lines_added'], result['lines_deleted'], result['num_commits'],
                              result['num_bug_fixes'], result['num_all_commits'], result['num_developers'],
                              result['num_all_developers'], result['avg_time_between_changes'],
-                             result['avg_time_all_versions'], result['avg_expertise'], result['min_expertise']])
+                             result['avg_time_all_versions'], result['avg_expertise'], result['min_expertise'],
+                             result['comment_change_commits'], result['non_comment_change_commits']])
     print(f"Written results to CSV file: {output_file}")
 
 def run_git_command(repo_path, command):
@@ -90,12 +91,16 @@ def get_comment_change_commits(repo_path, file_path, start_commit, end_commit):
     if not output:
         return 0, 0
 
-    commits = output.split('\n')
+    commits = output.split('\ncommit ')
     comment_change_commits = 0
     non_comment_change_commits = 0
 
     for commit in commits:
-        diff_output = run_git_command(repo_path, ['diff', f'{commit}^!', '--', file_path])
+        if not commit.strip():
+            continue
+        lines = commit.split('\n')
+        sha = lines[0].strip()
+        diff_output = '\n'.join(lines[1:])
         if any(line.strip().startswith(('+', '-')) and line.strip()[1:].strip().startswith('#') for line in diff_output.split('\n')):
             comment_change_commits += 1
         else:
@@ -161,7 +166,6 @@ if __name__ == "__main__":
     output_file = Path(os.path.realpath(__file__)).parent.parent.parent / "data" / output_file_name
     print(output_file)
     results = main(repo_path, start_commit, end_commit)
-
     write_commits_to_csv(results, output_file)
 
     del results
