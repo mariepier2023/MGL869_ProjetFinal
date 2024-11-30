@@ -1,34 +1,43 @@
-from pathlib import Path
 import pandas as pd
+from pathlib import Path
 import os
 import time
 
 start_time = time.time()
 # Chemins des fichiers
-commit_metriques_file_name = 'commit_metriques_3.0.0.csv'
-bugs_file_name = 'Bugs_3.0.0.csv'
-output_file_name = 'commit_metriques_with_bugs_3.0.0.csv'
+commit_metriques_PF_file_name = 'combined_metriques_PF_3.0.0.csv'
+commit_metriques_und_file_name = 'und_hive_all_metrics_3_0_0.csv'
+output_file_name = 'commit_all_metrics_3.0.0.csv'
 file_path = Path(os.path.realpath(__file__)).parent.parent.parent / 'data'
-commit_metriques_file = file_path / commit_metriques_file_name
-bugs_file = file_path / bugs_file_name
+commit_metriques_PF_file = file_path / commit_metriques_PF_file_name
+commit_metriques_und_file = file_path / commit_metriques_und_file_name
 output_file = file_path / output_file_name
-print(file_path / commit_metriques_file_name)
-
-# Lire les fichiers avec des bugs
-bugs_set = set(pd.read_csv(bugs_file, usecols=[3]).squeeze().tolist())
 
 # Lire les métriques des commits
-dataset = pd.read_csv(commit_metriques_file)
+dataset1 = pd.read_csv(commit_metriques_PF_file)
+dataset2 = pd.read_csv(commit_metriques_und_file)
+print(f"Nombre de lignes dans le dataset1: {len(dataset1)}")
+print(f"Nombre de lignes dans le dataset2: {len(dataset2)}")
+print(f"La différence entre dataset1 et dataset2: {len(dataset1) - len(dataset2)}")
 
-# Ajouter une colonne 'Bug' indiquant 'Yes' ou 'No'
-dataset['Bug'] = dataset['file'].apply(lambda x: 1 if x in bugs_set else 0)
-dataset = dataset.drop(columns=['file'])
+# Extraire uniquement le nom de fichier de la colonne 'Name' dans dataset1
+dataset1['Name'] = dataset1['Name'].apply(lambda x: os.path.basename(x))
+
+# Fusionner les datasets sur la colonne 'Name'
+merged_dataset = pd.merge(dataset1, dataset2, on='Name', how='outer')
+
+# Compter les lignes contenant des NaN
+nan_count = merged_dataset.isna().any(axis=1).sum()
+print(f"Nombre de lignes contenant des NaN avant remplacement: {nan_count}")
+
+# Remplacer les valeurs NaN par 0
+merged_dataset = merged_dataset.fillna(0)
+
 # Vérifier si le fichier de sortie existe déjà et le supprimer
 if os.path.exists(output_file):
     os.remove(output_file)
-
 # Sauvegarder le DataFrame modifié dans un nouveau fichier CSV
-dataset.to_csv(output_file, index=False)
+merged_dataset.to_csv(output_file, index=False)
 
 end_time = time.time()
 execution_time = end_time - start_time
