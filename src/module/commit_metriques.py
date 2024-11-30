@@ -7,6 +7,7 @@ from datetime import datetime
 from pathlib import Path
 import time
 
+
 def run_git_log(version_start, version_end, repo_path):
     """Exécute git log pour extraire les données nécessaires entre deux versions avec les patches."""
     command = (
@@ -104,11 +105,11 @@ def parse_git_log_with_comments(log_output):
             continue
         elif re.match(r"^\+[^+]", line):  # Ligne ajoutée (pas un "+++" header)
             current_commit["files"][current_file]["lines_added"] += 1
-            if "#" in line or "//" in line or "/*" in line or "*/" in line:  # Adapter pour le langage cible
+            if "#" in line:
                 current_commit["files"][current_file]["comments_added"] += 1
-        elif re.match(r"^-", line):  # Ligne supprimée
+        elif re.match(r"^-", line):
             current_commit["files"][current_file]["lines_deleted"] += 1
-            if "#" in line or "//" in line or "/*" in line or "*/" in line:
+            if "#" in line:
                 current_commit["files"][current_file]["comments_deleted"] += 1
 
     if current_commit:  # Ajouter le dernier commit
@@ -150,7 +151,9 @@ def analyze_metrics(commits, all_files, dev_expertise):
 
     # Analyse des commits pour chaque fichier
     for commit in commits:
-        is_bug_fix = any(keyword in commit["subject"].lower() for keyword in ["fix", "bug", "repair"])
+        is_bug_fix = any(keyword in commit["subject"].lower() for keyword in
+                         ["fix", "resolve", "repair", "patch", "debug", "correct", "rectify", "remedy ", "mend",
+                          "amend"])
         for file, file_data in commit["files"].items():
             if file not in all_files:
                 continue  # Ignore les fichiers absents de la version_end
@@ -261,7 +264,7 @@ def export_combined_metrics_to_csv(metrics_local, metrics_global, output_path):
             global_headers = []
 
         # Créer un en-tête combiné
-        headers = ["File"] + [f"{h}" for h in local_headers] + [f"{h}" for h in global_headers]
+        headers = ["Name"] + [f"{h}" for h in local_headers] + [f"{h}" for h in global_headers]
         writer.writerow(headers)
 
         # Inclure tous les fichiers présents dans les deux jeux de métriques
@@ -284,7 +287,7 @@ def main():
     version = "3.0.0"
     repo_path = R"C:\Users\lafor\Desktop\ETS - Cours\MGL869-01_Sujets speciaux\Laboratoire\Hive\hive"
     repo_output = Path(os.path.realpath(__file__)).parent.parent.parent / "data"
-    repo_name_output = "combined_metrics_" + version + ".csv"
+    repo_name_output = "combined_metriques_PF_" + version + ".csv"
     output_path = os.path.join(repo_output, repo_name_output)
     print(output_path)
 
@@ -313,6 +316,7 @@ def main():
 
     # Export combined metrics to CSV
     export_combined_metrics_to_csv(file_metrics, global_metrics, output_path)
+
 
 if __name__ == "__main__":
     start_time = time.time()
