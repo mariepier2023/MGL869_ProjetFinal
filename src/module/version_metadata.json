@@ -1,0 +1,50 @@
+{
+    "release-2.0.0": {
+        "branch_date": "2015-12-02 17:55:20 -0800",
+        "commit_branchement": "bbe23403cf34e27af04a271c49d484d2fbbd8656",
+        "hash_version": "7f9f1fcb8697fb33f0edc2c391930a3728d247d7",
+        "closest_lower_tag": null,
+        "hash_closest_lower_tag": null,
+        "tag_date": null
+    },
+    "rel/release-2.1.0": {
+        "branch_date": "2016-05-25 09:30:24 +0100",
+        "commit_branchement": "cd274547f33f9d5e5a86d9260da6defa1aea9a90",
+        "hash_version": "9265bc24d75ac945bde9ce1a0999fddd8f2aae29",
+        "closest_lower_tag": "release-2.0.0",
+        "hash_closest_lower_tag": "7f9f1fcb8697fb33f0edc2c391930a3728d247d7",
+        "tag_date": "2016-02-09 19:55:29 -0600"
+    },
+    "rel/release-2.2.0": {
+        "branch_date": "2016-05-25 09:30:24 +0100",
+        "commit_branchement": "cd274547f33f9d5e5a86d9260da6defa1aea9a90",
+        "hash_version": "da840b0f8fa99cab9f004810cd22abc207493cae",
+        "closest_lower_tag": "release-2.0.0",
+        "hash_closest_lower_tag": "7f9f1fcb8697fb33f0edc2c391930a3728d247d7",
+        "tag_date": "2016-02-09 19:55:29 -0600"
+    },
+    "rel/release-2.3.0": {
+        "branch_date": "2017-03-23 22:07:35 -0700",
+        "commit_branchement": "b4d1f96c6f7a1652af94c1d8202f214ed27f87d1",
+        "hash_version": "6f4c35c9e904d226451c465effdc5bfd31d395a0",
+        "closest_lower_tag": "rel/release-2.1.0",
+        "hash_closest_lower_tag": "9265bc24d75ac945bde9ce1a0999fddd8f2aae29",
+        "tag_date": "2016-06-17 00:47:37 +0100"
+    },
+    "rel/release-3.0.0": {
+        "branch_date": "2018-04-09 12:03:02 -0700",
+        "commit_branchement": "d589ee7550abb52864b71acb94e1efab601ea67e",
+        "hash_version": "ce61711a5fa54ab34fc74d86d521ecaeea6b072a",
+        "closest_lower_tag": "rel/release-2.2.0",
+        "hash_closest_lower_tag": "da840b0f8fa99cab9f004810cd22abc207493cae",
+        "tag_date": "2017-07-21 17:14:22 -0700"
+    },
+    "rel/release-3.1.0": {
+        "branch_date": "2018-04-09 12:03:02 -0700",
+        "commit_branchement": "d589ee7550abb52864b71acb94e1efab601ea67e",
+        "hash_version": "bcc7df95824831a8d2f1524e4048dfc23ab98c19",
+        "closest_lower_tag": "rel/release-2.2.0",
+        "hash_closest_lower_tag": "da840b0f8fa99cab9f004810cd22abc207493cae",
+        "tag_date": "2017-07-21 17:14:22 -0700"
+    }
+}

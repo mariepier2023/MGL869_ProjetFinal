@@ -1,9 +1,12 @@
 import csv
+import json
 import os
 from pathlib import Path
-
-from src.module.commit_extractor import get_commits
-from src.module.jira_extrator import extract_issues
+import time
+from module.extractor_commit import get_commits
+from module.extractor_jira import extract_issues
+from module.commit_metriques import find_metrics
+from module.préparation_métrique_pourAnalyse import prepare_all_metrics
 
 
 def write_commits_to_csv(commit_list, output_file):
@@ -24,24 +27,53 @@ def write_commits_to_csv(commit_list, output_file):
             for bug_file in commit['files']:
                 writer.writerow([key, sha, message, bug_file])
 
+def main(version, metadata):
+    VERSION = version
+    OUTPUT_FILE_NAME = "Bugs_" + VERSION + ".csv"
+    OUTPUT_FILE = Path(os.path.realpath(__file__)).parent.parent/"data"/OUTPUT_FILE_NAME
+    JIRA_SEARCH_FILTER = "project = HIVE AND issuetype = Bug AND status in (Resolved, Closed) AND resolution = Fixed AND affectedVersion = " + VERSION
 
-VERSION = "3.0.0"
-OUTPUT_FILE_NAME = "Bugs_" + VERSION + ".csv"
-OUTPUT_FILE = Path(os.path.realpath(__file__)).parent.parent/"data"/OUTPUT_FILE_NAME
-JIRA_SEARCH_FILTER = "project = HIVE AND issuetype = Bug AND status in (Resolved, Closed) AND resolution = Fixed AND affectedVersion = " + VERSION
-
-print("Extracting jira issues...")
-issues = {}
-for issue in extract_issues(JIRA_SEARCH_FILTER, ["versions"]):
-    issues[issue["key"]] = {"affectedVersions": [e["name"] for e in issue["fields"]["versions"]]}
-print(f"\tFound {len(issues)} issues.\n")
+    if not os.path.exists(OUTPUT_FILE):
+        print("Extracting jira issues...")
+        issues = {}
+        for issue in extract_issues(JIRA_SEARCH_FILTER, ["versions"]):
+            issues[issue["key"]] = {"affectedVersions": [e["name"] for e in issue["fields"]["versions"]]}
+        print(f"\tFound {len(issues)} issues.\n")
 
 
-print("Extracting github commits...")
-REPO_PATH = r'C:\Users\lafor\Desktop\ETS - Cours\MGL869-01_Sujets speciaux\Laboratoire\Hive\hive'
-commits_list = get_commits(REPO_PATH, issues)
+        print("Extracting github commits...")
+        REPO_PATH = r'C:\Users\lafor\Desktop\ETS - Cours\MGL869-01_Sujets speciaux\Laboratoire\Hive\hive'
+        commits_list = get_commits(REPO_PATH, issues)
+        write_commits_to_csv(commits_list, OUTPUT_FILE)
 
-write_commits_to_csv(commits_list, OUTPUT_FILE)
+        del commits_list
+        del issues
+    else:
+        print(f"file {OUTPUT_FILE} already exists")
 
-del commits_list
-del issues
+    print("Finding metrics...")
+    print(Path(os.path.realpath(__file__)).parent.parent/"data")
+    metric_file = Path(os.path.realpath(__file__)).parent.parent / "data" / ("combined_metriques_PF_" + version + ".csv")
+    if not os.path.exists(metric_file):
+        print(f"File not found: {metric_file}")
+        find_metrics(version, metadata)
+        return
+    else:
+        print(f"File found: {metric_file}")
+
+    print("Merge metrics...")
+    prepare_all_metrics(version)
+
+
+
+if __name__ == "__main__":
+    start_time = time.time()
+    with open(Path(os.path.realpath(__file__)).parent/'module/version_metadata.json','r', encoding='utf-8') as file:
+        version_metadata = json.load(file)
+    for tag, metadata in version_metadata.items():
+        version = tag[-5:]
+        print(f"Analyzing version {version}...")
+        main(version, metadata)
+    end_time = time.time()
+    execution_time = end_time - start_time
+

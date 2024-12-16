@@ -1,4 +1,5 @@
 import csv
+import json
 import os
 import re
 import subprocess
@@ -8,34 +9,50 @@ from pathlib import Path
 import time
 
 
-def run_git_log(version_start, version_end, repo_path):
+
+def run_git_log(commit_start, commit_end, repo_path):
     """Exécute git log pour extraire les données nécessaires entre deux versions avec les patches."""
-    command = (
-        f"git log {version_start}..{version_end} --stat --numstat --patch "
-        f'--pretty=format:"Commit: %H%nAuthor: %an <%ae>%nDate: %ad%nSubject: %s%n" --date=short'
-    )
-    result = subprocess.run(command, shell=True, text=True, capture_output=True, cwd=repo_path, encoding='utf-8')
-    return result.stdout.strip() if result.returncode == 0 else ""
+    if commit_start:
+        command = (
+            f"git log {commit_start}..{commit_end} --stat --numstat --patch "
+            f'--pretty=format:"Commit: %H%nAuthor: %an <%ae>%nDate: %ad%nSubject: %s%n" --date=short'
+        )
+    else:
+        command = (
+            f"git log {commit_end} --stat --numstat --patch "
+            f'--pretty=format:"Commit: %H%nAuthor: %an <%ae>%nDate: %ad%nSubject: %s%n" --date=short'
+        )
+    try:
+        result = subprocess.run(command, shell=True, capture_output=True, cwd=repo_path)
+        try:
+            output = result.stdout.decode('utf-8').strip()
+        except UnicodeDecodeError:
+            output = result.stdout.decode('latin-1').strip()
+        if result.returncode != 0:
+            raise subprocess.CalledProcessError(result.returncode, command)
+        return output
+    except subprocess.CalledProcessError as e:
+        print(f"Command '{e.cmd}' returned non-zero exit status {e.returncode}.")
+        return ""
 
-
-def run_git_log_until(version_start, repo_path):
+def run_git_log_until(commit, repo_path):
     """Exécute git log jusqu'à version_start pour collecter les informations d'expertise."""
     command = (
-        f"git log {version_start} --stat --numstat "
+        f"git log {commit} --stat --numstat "
         f'--pretty=format:"Commit: %H%nAuthor: %an <%ae>%nDate: %ad%nSubject: %s%n" --date=short'
     )
     result = subprocess.run(command, shell=True, text=True, capture_output=True, cwd=repo_path, encoding='utf-8')
     return result.stdout.strip() if result.returncode == 0 else ""
 
-
-def run_git_log_global(version_end, repo_path):
-    """Exécute git log pour tous les commits jusqu'à version_end."""
-    command = (
-        f"git log --stat --numstat {version_end} "
-        f'--pretty=format:"Commit: %H%nAuthor: %an <%ae>%nDate: %ad%nSubject: %s%n" --date=short'
-    )
-    result = subprocess.run(command, shell=True, text=True, capture_output=True, cwd=repo_path, encoding='utf-8')
-    return result.stdout.strip() if result.returncode == 0 else ""
+# """ À REFAIRE!!!"""
+# def run_git_log_global(commit, repo_path):
+#     """Exécute git log pour tous les commits jusqu'à version_end."""
+#     command = (
+#         f"git log --stat --numstat {commit_end} "
+#         f'--pretty=format:"Commit: %H%nAuthor: %an <%ae>%nDate: %ad%nSubject: %s%n" --date=short'
+#     )
+#     result = subprocess.run(command, shell=True, text=True, capture_output=True, cwd=repo_path, encoding='utf-8')
+#     return result.stdout.strip() if result.returncode == 0 else ""
 
 
 def parse_git_log(log_output):
@@ -118,9 +135,9 @@ def parse_git_log_with_comments(log_output):
     return commits
 
 
-def get_all_files_at_version(version, repo_path):
+def get_all_files_at_commit(commit, repo_path):
     """Récupère tous les fichiers présents à une version donnée."""
-    command = f"git ls-tree -r --name-only {version}"
+    command = f"git ls-tree -r --name-only {commit}"
     result = subprocess.run(command, shell=True, text=True, capture_output=True, cwd=repo_path)
     return result.stdout.strip().splitlines() if result.returncode == 0 else []
 
@@ -242,7 +259,6 @@ def analyze_global_metrics(commits, all_files):
 
 def export_combined_metrics_to_csv(metrics_local, metrics_global, output_path):
     """Exporte les métriques locales et globales dans un même fichier CSV."""
-
     # Vérifier si le fichier existe déjà
     if os.path.exists(output_path):
         os.remove(output_path)
@@ -280,11 +296,11 @@ def export_combined_metrics_to_csv(metrics_local, metrics_global, output_path):
     print(f"Les métriques combinées ont été exportées vers {output_path}")
 
 
-def main():
+def find_metrics(version, metadata):
+    start_time = time.time()
     # Define Git versions and repository path
-    version_start = "release-2.0.0"
-    version_end = "rel/release-3.0.0"
-    version = "3.0.0"
+    commit_start = metadata["hash_closest_lower_tag"]
+    commit_end = metadata["hash_version"]
     repo_path = R"C:\Users\lafor\Desktop\ETS - Cours\MGL869-01_Sujets speciaux\Laboratoire\Hive\hive"
     repo_output = Path(os.path.realpath(__file__)).parent.parent.parent / "data"
     repo_name_output = "combined_metriques_PF_" + version + ".csv"
@@ -292,15 +308,15 @@ def main():
     print(output_path)
 
     # Run Git logs to get commits
-    log_output = run_git_log(version_start, version_end, repo_path)
+    log_output = run_git_log(commit_start, commit_end, repo_path)
     commits_with_comments = parse_git_log_with_comments(log_output)
-    precedant_log_output = run_git_log_until(version_start, repo_path)
+    precedant_log_output = run_git_log_until(commit_start, repo_path)
     precedant_commits = parse_git_log(precedant_log_output)
-    global_log_output = run_git_log_global(version_end, repo_path)
+    global_log_output = run_git_log_until(commit_end, repo_path)
     global_commits = parse_git_log(global_log_output)
 
     # Get the list of files at version_end
-    all_files = get_all_files_at_version(version_end, repo_path)
+    all_files = get_all_files_at_commit(commit_end, repo_path)
     print("nombre de fichier :" + str(len(all_files)))
 
     # Calculate developer expertise
@@ -316,11 +332,20 @@ def main():
 
     # Export combined metrics to CSV
     export_combined_metrics_to_csv(file_metrics, global_metrics, output_path)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"Execution time: {execution_time} seconds")
 
 
 if __name__ == "__main__":
     start_time = time.time()
-    main()
+    print(Path(os.path.realpath(__file__)).parent/'version_metadata.json')
+    with open(Path(os.path.realpath(__file__)).parent/'version_metadata.json','r', encoding='utf-8') as file:
+        version_metadata = json.load(file)
+    for tag, metadata in version_metadata.items():
+        version = tag[-5:]
+        print(f"Analyzing version {version}...")
+        find_metrics(version, metadata)
     end_time = time.time()
     execution_time = end_time - start_time
-    print(f"Execution time: {execution_time} seconds")
+    print(f"Total execution time: {execution_time} seconds")
