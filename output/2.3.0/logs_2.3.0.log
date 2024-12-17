@@ -1,0 +1,388 @@
+VERSION: 2.3.0
+
+Total number of .java files: 15563
+Number of .java files in the "fBugs_2.3.0.csv": 50
+Number of .java files with bug in the filtered_dataset: 50
+Missing .java files in the filtered_dataset:
+    LongColModuloLongColumn.java
+    CachedStore.java
+    DagJsonParser.java
+
+Number of combined rows for current and previous versions without duplicates
+Initial number of metric columns: 67
+Initial number of rows: 15563
+Total number of bugs: 50
+
+Initial variable columns: 67
+    lines_added
+    lines_deleted
+    comments_added
+    comments_deleted
+    commits
+    bug_fixes
+    avg_time_between_changes
+    dev_expertise_avg
+    dev_expertise_min
+    developer_count
+    commits_global
+    avg_time_between_changes_global
+    developer_count_global
+    AvgCountLine
+    AvgCountLineBlank
+    AvgCountLineCode
+    AvgCountLineComment
+    AvgCyclomatic
+    AvgCyclomaticModified
+    AvgCyclomaticStrict
+    AvgEssential
+    CountClassBase
+    CountClassCoupled
+    CountClassDerived
+    CountDeclClass
+    CountDeclClassMethod
+    CountDeclClassVariable
+    CountDeclFunction
+    CountDeclInstanceMethod
+    CountDeclInstanceVariable
+    CountDeclMethod
+    CountDeclMethodDefault
+    CountDeclMethodPrivate
+    CountDeclMethodProtected
+    CountDeclMethodPublic
+    CountLine
+    CountLineBlank
+    CountLineCode
+    CountLineCodeDecl
+    CountLineCodeExe
+    CountLineComment
+    CountSemicolon
+    CountStmt
+    CountStmtDecl
+    CountStmtExe
+    MaxCyclomatic
+    MaxCyclomaticModified
+    MaxCyclomaticStrict
+    MaxInheritanceTree
+    PercentLackOfCohesion
+    RatioCommentToCode
+    SumCyclomatic
+    SumCyclomaticModified
+    SumCyclomaticStrict
+    SumEssential
+    CountInputMin
+    CountInputMean
+    CountInputMax
+    CountOutputMin
+    CountOutputMean
+    CountOutputMax
+    CountPathMin
+    CountPathMean-divided-by-100,000
+    CountPathMax-divided-by-1,000,000
+    MaxNestingMin
+    MaxNestingMean
+    MaxNestingMax
+
+Drop all NaN columns
+Remaining columns (67):
+    lines_added
+    lines_deleted
+    comments_added
+    comments_deleted
+    commits
+    bug_fixes
+    avg_time_between_changes
+    dev_expertise_avg
+    dev_expertise_min
+    developer_count
+    commits_global
+    avg_time_between_changes_global
+    developer_count_global
+    AvgCountLine
+    AvgCountLineBlank
+    AvgCountLineCode
+    AvgCountLineComment
+    AvgCyclomatic
+    AvgCyclomaticModified
+    AvgCyclomaticStrict
+    AvgEssential
+    CountClassBase
+    CountClassCoupled
+    CountClassDerived
+    CountDeclClass
+    CountDeclClassMethod
+    CountDeclClassVariable
+    CountDeclFunction
+    CountDeclInstanceMethod
+    CountDeclInstanceVariable
+    CountDeclMethod
+    CountDeclMethodDefault
+    CountDeclMethodPrivate
+    CountDeclMethodProtected
+    CountDeclMethodPublic
+    CountLine
+    CountLineBlank
+    CountLineCode
+    CountLineCodeDecl
+    CountLineCodeExe
+    CountLineComment
+    CountSemicolon
+    CountStmt
+    CountStmtDecl
+    CountStmtExe
+    MaxCyclomatic
+    MaxCyclomaticModified
+    MaxCyclomaticStrict
+    MaxInheritanceTree
+    PercentLackOfCohesion
+    RatioCommentToCode
+    SumCyclomatic
+    SumCyclomaticModified
+    SumCyclomaticStrict
+    SumEssential
+    CountInputMin
+    CountInputMean
+    CountInputMax
+    CountOutputMin
+    CountOutputMean
+    CountOutputMax
+    CountPathMin
+    CountPathMean-divided-by-100,000
+    CountPathMax-divided-by-1,000,000
+    MaxNestingMin
+    MaxNestingMean
+    MaxNestingMax
+Dropped all NaN columns (0):
+
+Columns with missing values:
+    lines_added: 0
+    lines_deleted: 0
+    comments_added: 0
+    comments_deleted: 0
+    commits: 0
+    bug_fixes: 0
+    avg_time_between_changes: 0
+    dev_expertise_avg: 0
+    dev_expertise_min: 0
+    developer_count: 0
+    commits_global: 0
+    avg_time_between_changes_global: 0
+    developer_count_global: 0
+    AvgCountLine: 0
+    AvgCountLineBlank: 0
+    AvgCountLineCode: 0
+    AvgCountLineComment: 0
+    AvgCyclomatic: 0
+    AvgCyclomaticModified: 0
+    AvgCyclomaticStrict: 0
+    AvgEssential: 0
+    CountClassBase: 0
+    CountClassCoupled: 0
+    CountClassDerived: 0
+    CountDeclClass: 0
+    CountDeclClassMethod: 0
+    CountDeclClassVariable: 0
+    CountDeclFunction: 0
+    CountDeclInstanceMethod: 0
+    CountDeclInstanceVariable: 0
+    CountDeclMethod: 0
+    CountDeclMethodDefault: 0
+    CountDeclMethodPrivate: 0
+    CountDeclMethodProtected: 0
+    CountDeclMethodPublic: 0
+    CountLine: 0
+    CountLineBlank: 0
+    CountLineCode: 0
+    CountLineCodeDecl: 0
+    CountLineCodeExe: 0
+    CountLineComment: 0
+    CountSemicolon: 0
+    CountStmt: 0
+    CountStmtDecl: 0
+    CountStmtExe: 0
+    MaxCyclomatic: 0
+    MaxCyclomaticModified: 0
+    MaxCyclomaticStrict: 0
+    MaxInheritanceTree: 0
+    PercentLackOfCohesion: 0
+    RatioCommentToCode: 0
+    SumCyclomatic: 0
+    SumCyclomaticModified: 0
+    SumCyclomaticStrict: 0
+    SumEssential: 0
+    CountInputMin: 0
+    CountInputMean: 0
+    CountInputMax: 0
+    CountOutputMin: 0
+    CountOutputMean: 0
+    CountOutputMax: 0
+    CountPathMin: 0
+    CountPathMean-divided-by-100,000: 0
+    CountPathMax-divided-by-1,000,000: 0
+    MaxNestingMin: 0
+    MaxNestingMean: 0
+    MaxNestingMax: 0
+Total rows with missing values removed: 0
+Total rows remaining: 15563
+
+Correlated columns to be dropped:
+    dev_expertise_min, correlated to: ['dev_expertise_avg']
+    developer_count, correlated to: ['commits']
+    developer_count_global, correlated to: ['commits_global']
+    AvgCountLineBlank, correlated to: ['AvgCountLine']
+    AvgCountLineCode, correlated to: ['AvgCountLine', 'AvgCountLineBlank']
+    AvgCyclomatic, correlated to: ['AvgCountLine', 'AvgCountLineCode']
+    AvgCyclomaticModified, correlated to: ['AvgCountLine', 'AvgCountLineCode', 'AvgCyclomatic']
+    AvgCyclomaticStrict, correlated to: ['AvgCountLine', 'AvgCountLineCode', 'AvgCyclomatic', 'AvgCyclomaticModified']
+    AvgEssential, correlated to: ['AvgCyclomatic', 'AvgCyclomaticModified', 'AvgCyclomaticStrict']
+    CountClassBase, correlated to: ['AvgEssential']
+    CountClassCoupled, correlated to: ['AvgCountLineCode']
+    CountDeclClassMethod, correlated to: ['CountDeclClass']
+    CountDeclClassVariable, correlated to: ['CountDeclClass', 'CountDeclClassMethod']
+    CountDeclFunction, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable']
+    CountDeclInstanceMethod, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction']
+    CountDeclInstanceVariable, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod']
+    CountDeclMethod, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable']
+    CountDeclMethodDefault, correlated to: ['CountDeclClassMethod']
+    CountDeclMethodPrivate, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodDefault']
+    CountDeclMethodProtected, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodDefault', 'CountDeclMethodPrivate']
+    CountDeclMethodPublic, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected']
+    CountLine, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic']
+    CountLineBlank, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine']
+    CountLineCode, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine', 'CountLineBlank']
+    CountLineCodeDecl, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine', 'CountLineBlank', 'CountLineCode']
+    CountLineCodeExe, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine', 'CountLineBlank', 'CountLineCode', 'CountLineCodeDecl']
+    CountLineComment, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodDefault', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine', 'CountLineBlank', 'CountLineCode', 'CountLineCodeDecl', 'CountLineCodeExe']
+    CountSemicolon, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine', 'CountLineBlank', 'CountLineCode', 'CountLineCodeDecl', 'CountLineCodeExe', 'CountLineComment']
+    CountStmt, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine', 'CountLineBlank', 'CountLineCode', 'CountLineCodeDecl', 'CountLineCodeExe', 'CountLineComment', 'CountSemicolon']
+    CountStmtDecl, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine', 'CountLineBlank', 'CountLineCode', 'CountLineCodeDecl', 'CountLineCodeExe', 'CountLineComment', 'CountSemicolon', 'CountStmt']
+    CountStmtExe, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine', 'CountLineBlank', 'CountLineCode', 'CountLineCodeDecl', 'CountLineCodeExe', 'CountLineComment', 'CountSemicolon', 'CountStmt', 'CountStmtDecl']
+    MaxCyclomatic, correlated to: ['AvgCyclomatic', 'AvgCyclomaticModified', 'AvgCyclomaticStrict']
+    MaxCyclomaticModified, correlated to: ['AvgCyclomatic', 'AvgCyclomaticModified', 'AvgCyclomaticStrict', 'MaxCyclomatic']
+    MaxCyclomaticStrict, correlated to: ['AvgCyclomaticStrict', 'MaxCyclomatic', 'MaxCyclomaticModified']
+    MaxInheritanceTree, correlated to: ['CountClassBase']
+    SumCyclomatic, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine', 'CountLineBlank', 'CountLineCode', 'CountLineCodeDecl', 'CountLineCodeExe', 'CountLineComment', 'CountSemicolon', 'CountStmt', 'CountStmtDecl', 'CountStmtExe']
+    SumCyclomaticModified, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine', 'CountLineBlank', 'CountLineCode', 'CountLineCodeDecl', 'CountLineCodeExe', 'CountLineComment', 'CountSemicolon', 'CountStmt', 'CountStmtDecl', 'CountStmtExe', 'SumCyclomatic']
+    SumCyclomaticStrict, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine', 'CountLineBlank', 'CountLineCode', 'CountLineCodeDecl', 'CountLineCodeExe', 'CountLineComment', 'CountSemicolon', 'CountStmt', 'CountStmtDecl', 'CountStmtExe', 'SumCyclomatic', 'SumCyclomaticModified']
+    SumEssential, correlated to: ['CountDeclClass', 'CountDeclClassMethod', 'CountDeclClassVariable', 'CountDeclFunction', 'CountDeclInstanceMethod', 'CountDeclInstanceVariable', 'CountDeclMethod', 'CountDeclMethodPrivate', 'CountDeclMethodProtected', 'CountDeclMethodPublic', 'CountLine', 'CountLineBlank', 'CountLineCode', 'CountLineCodeDecl', 'CountLineCodeExe', 'CountLineComment', 'CountSemicolon', 'CountStmt', 'CountStmtDecl', 'CountStmtExe', 'SumCyclomatic', 'SumCyclomaticModified', 'SumCyclomaticStrict']
+    CountOutputMean, correlated to: ['AvgCountLine', 'AvgCountLineCode', 'AvgCyclomaticModified', 'CountClassCoupled', 'CountOutputMin']
+    MaxNestingMean, correlated to: ['AvgCyclomatic', 'AvgCyclomaticModified', 'AvgCyclomaticStrict', 'CountOutputMean']
+    MaxNestingMax, correlated to: ['AvgCyclomaticModified', 'MaxCyclomaticModified', 'CountOutputMax', 'MaxNestingMean']
+
+Remove outliers:
+    Initial number of rows in the filtered_dataset: 15563
+    Initial number of .java files with bug in the filtered_dataset: 50
+    IQR_method n argument: 20
+    Total number of outliers is: 0
+    Final number of rows in the filtered_dataset: 15563
+    Final number of .java files with bug in the filtered_dataset: 50
+
+Drop same value columns after outliers removal
+Initial columns: 25
+    lines_added
+    lines_deleted
+    comments_added
+    comments_deleted
+    commits
+    bug_fixes
+    avg_time_between_changes
+    dev_expertise_avg
+    commits_global
+    avg_time_between_changes_global
+    AvgCountLine
+    AvgCountLineComment
+    CountClassDerived
+    CountDeclClass
+    PercentLackOfCohesion
+    RatioCommentToCode
+    CountInputMin
+    CountInputMean
+    CountInputMax
+    CountOutputMin
+    CountOutputMax
+    CountPathMin
+    CountPathMean-divided-by-100,000
+    CountPathMax-divided-by-1,000,000
+    MaxNestingMin
+Remaining columns (25):
+    lines_added
+    lines_deleted
+    comments_added
+    comments_deleted
+    commits
+    bug_fixes
+    avg_time_between_changes
+    dev_expertise_avg
+    commits_global
+    avg_time_between_changes_global
+    AvgCountLine
+    AvgCountLineComment
+    CountClassDerived
+    CountDeclClass
+    PercentLackOfCohesion
+    RatioCommentToCode
+    CountInputMin
+    CountInputMean
+    CountInputMax
+    CountOutputMin
+    CountOutputMax
+    CountPathMin
+    CountPathMean-divided-by-100,000
+    CountPathMax-divided-by-1,000,000
+    MaxNestingMin
+Dropped same value columns (0):
+
+Variables range:
+    lines_added: 0 - 32340
+    lines_deleted: 0 - 28047
+    comments_added: 0 - 1441
+    comments_deleted: 0 - 261
+    commits: 0 - 142
+    bug_fixes: 0 - 8
+    avg_time_between_changes: 0.0 - 395.0
+    dev_expertise_avg: 0.0 - 1486.0
+    commits_global: 0 - 874
+    avg_time_between_changes_global: 0.0 - 2842.0
+    AvgCountLine: 0.0 - 355.0
+    AvgCountLineComment: 0.0 - 38.0
+    CountClassDerived: 0.0 - 35.0
+    CountDeclClass: 0.0 - 2457.0
+    PercentLackOfCohesion: 0.0 - 100.0
+    RatioCommentToCode: 0.0 - 68.0
+    CountInputMin: 0.0 - 35.0
+    CountInputMean: 0.0 - 56.5
+    CountInputMax: 0.0 - 413.0
+    CountOutputMin: 0.0 - 72.0
+    CountOutputMax: 0.0 - 189.0
+    CountPathMin: 0.0 - 464.0
+    CountPathMean-divided-by-100,000: 0 - 500
+    CountPathMax-divided-by-1,000,000: 0 - 1000
+    MaxNestingMin: 0.0 - 6.0
+
+random_forest_clf best params: {'bootstrap': True, 'ccp_alpha': 0.0, 'class_weight': None, 'criterion': 'gini', 'max_depth': 8, 'max_features': 'sqrt', 'max_leaf_nodes': None, 'max_samples': None, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'monotonic_cst': None, 'n_estimators': 100, 'n_jobs': None, 'oob_score': False, 'random_state': 0, 'verbose': 0, 'warm_start': False}
+Random Forest Cross Validation Precision scores are: [0. 0. 0. 1. 0. 0. 1. 0. 0. 0.]
+Random Forest Average Cross Validation Precision score: 0.2
+Random Forest Cross Validation Precision standard deviation: 0.4216370213557839
+Random Forest Cross Validation Recall scores are: [0.  0.  0.  0.2 0.  0.  0.2 0.  0.  0. ]
+Random Forest Average Cross Validation Recall score: 0.04
+Random Forest Cross Validation Recall standard deviation: 0.08432740427115679
+Random Forest classifier performance:
+precision: [0.99700086 1.        ]
+recall: [1.         0.06666667]
+fscore: [0.99849818 0.125     ]
+support: [4654   15]
+
+Random Forest classifier performance:
+precision: 1.0
+recall: 0.06666666666666667
+fscore: 0.125
+support: None
+
+Random Forest AUC: 0.9183927804039537
+
+Random Forest classifier performance:
+Random Forest Average Cross Validation Precision score: 20.0
+Random Forest Average Cross Validation Recall score: 4.0
+Random Forest AUC: 91.8
+precision: 100.0
+recall: 6.7
+

@@ -9,7 +9,7 @@ def prepare_all_metrics(version):
     # Chemins des fichiers
     commit_metriques_PF_file_name = 'combined_metriques_PF_' + version + '.csv'
     commit_metriques_und_file_name = 'und_hive_all_metrics_' + version + '.csv'
-    output_file_name = 'commit_all_metrics' + version + '.csv'
+    output_file_name = 'commit_all_metrics_' + version + '.csv'
     file_path = Path(os.path.realpath(__file__)).parent.parent.parent / 'data'
     commit_metriques_PF_file = file_path / commit_metriques_PF_file_name
     commit_metriques_und_file = file_path / commit_metriques_und_file_name
