@@ -6,7 +6,7 @@ import time
 from module.extractor_commit import get_commits
 from module.extractor_jira import extract_issues
 from module.commit_metriques import find_metrics
-from module.préparation_métrique_pourAnalyse import prepare_all_metrics
+from module.préparation_métrique import prepare_all_metrics
 
 
 def write_commits_to_csv(commit_list, output_file):
@@ -62,7 +62,10 @@ def main(version, metadata):
         print(f"File found: {metric_file}")
 
     print("Merge metrics...")
-    prepare_all_metrics(version)
+    commit_metriques_PF_file_name = 'combined_metriques_PF_' + version + '.csv'
+    commit_metriques_und_file_name = 'und_hive_all_metrics_' + version + '.csv'
+    output_file_name = 'commit_all_metrics_' + version + '.csv'
+    prepare_all_metrics(version,commit_metriques_PF_file_name,commit_metriques_und_file_name,output_file_name)
 
 
 
